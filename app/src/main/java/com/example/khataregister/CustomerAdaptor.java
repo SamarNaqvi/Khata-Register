@@ -13,10 +13,10 @@ import java.util.ArrayList;
 
 public class CustomerAdaptor extends RecyclerView.Adapter<CustomerAdaptor.CustomerViewHolder>{
 
-    private ArrayList<Product> cartItems= new ArrayList<Product>();
+    private ArrayList<Product> products= new ArrayList<Product>();
 
-    public CustomerAdaptor(ArrayList<Product> cartItems) {
-        this.cartItems = cartItems;
+    public CustomerAdaptor(ArrayList<Product> Items) {
+        this.products = Items;
     }
 
 
@@ -30,10 +30,10 @@ public class CustomerAdaptor extends RecyclerView.Adapter<CustomerAdaptor.Custom
     @Override
     public void onBindViewHolder(@NonNull CustomerViewHolder holder, int position) {
 
-        holder.name.setText(cartItems.get(position).getName());
-        holder.quantity.setText(Integer.toString(cartItems.get(position).getQuantity()));
-        holder.price.setText(Float.toString(cartItems.get(position).getPrice()));
-        holder.date.setText(cartItems.get(position).getDate());
+        holder.name.setText(products.get(position).getName());
+        holder.quantity.setText(Integer.toString(products.get(position).getQuantity()));
+        holder.price.setText(Float.toString(products.get(position).getPrice()));
+        holder.date.setText(products.get(position).getDate());
 
     }
 
@@ -41,7 +41,7 @@ public class CustomerAdaptor extends RecyclerView.Adapter<CustomerAdaptor.Custom
 
     @Override
     public int getItemCount() {
-        return cartItems.size();
+        return products.size();
     }
 
     public class CustomerViewHolder extends RecyclerView.ViewHolder {

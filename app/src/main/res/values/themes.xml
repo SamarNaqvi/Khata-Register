@@ -14,12 +14,17 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.KhataRegister.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+<!--    <style name="Theme.KhataRegister.NoActionBar">-->
+<!--        <item name="windowActionBar">false</item>-->
+<!--        <item name="windowNoTitle">true</item>-->
+<!--    </style>-->
+
+<!--    <style name="Theme.KhataRegister.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
+
+<!--    <style name="Theme.KhataRegister.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
+
+    <style name="circular">
+        <item name="cornerSize">50%</item>
     </style>
 
-    <style name="Theme.KhataRegister.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.KhataRegister.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

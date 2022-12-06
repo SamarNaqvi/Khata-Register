@@ -1,53 +1,63 @@
 package com.example.khataregister;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
-import android.os.PersistableBundle;
-import android.provider.MediaStore;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
+
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
 
 public class MainProfile extends AppCompatActivity {
-    static ArrayList<customer> exampleList = new ArrayList<>();
-    RecyclerView rcv;
-    customerList a ;
-    private final int GALLERY_REQ_CODE=1000;
-    EditText name;
+
+    TabLayout tabLayout;
+    public static ViewPager2 viewPager;
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_main_profile);
+        setContentView(R.layout.home);
+        tabLayout=(TabLayout)findViewById(R.id.tab_layout);
+        viewPager=(ViewPager2)findViewById(R.id.view_pager);
 
-        name = findViewById(R.id.name);
-        rcv=(RecyclerView) findViewById(R.id.recyclerView);
-        rcv.setLayoutManager(new LinearLayoutManager(this));
-        a =  new customerList(this);
-        a.setArrays(exampleList);
-        rcv.setAdapter(a);
 
+        FragmentAdaptor adapter = new FragmentAdaptor(this);
+        viewPager.setAdapter(adapter);
+
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                tabLayout.getTabAt(position).select();
+            }
+        });
     }
-
-    public void onClick(View v){
-        customer c = new customer(name.getText().toString());
-        exampleList.add(c);
-        a =  new customerList(this);
-        a.setArrays(exampleList);
-        rcv.setAdapter(a);
-    }
-
-
 
 }

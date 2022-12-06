@@ -15,7 +15,6 @@ public class CustomerDetail extends AppCompatActivity {
 
     CustomerAdaptor adaptor;
     ArrayList<Product>data = new ArrayList<Product>();
-    Customer cust;
     ImageView img;
     TextView name, payable;
 

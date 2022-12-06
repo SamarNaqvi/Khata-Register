@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignupActivity"
+    android:padding="10dp"
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:src="@drawable/logo"
         android:layout_gravity="center"
         />
@@ -19,55 +20,79 @@
         android:layout_height="wrap_content"
         android:text="Sign Up"
         android:textSize="30dp"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
         android:textColor="#4C74AF"
         android:fontFamily="sans-serif-medium"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_margin="15dp"
-        android:text="User name"
+        android:layout_margin="10dp"
+        android:hint="User name"
+        android:id="@+id/signUp_name"
         android:textColor="#4E4D4D"
         android:background="@drawable/edt_background"
         android:drawableLeft="@drawable/ic_person"
         android:paddingLeft="10dp"
+        android:textSize="20dp"
         android:drawablePadding="10dp"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_margin="15dp"
-        android:text="Email address"
+        android:layout_margin="10dp"
+        android:hint="Email address"
+        android:id="@+id/signUp_email"
         android:textColor="#4E4D4D"
         android:background="@drawable/edt_background"
         android:drawableLeft="@drawable/ic_email"
         android:paddingLeft="10dp"
+        android:textSize="20dp"
         android:drawablePadding="10dp"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_margin="15dp"
-        android:text="Password"
+        android:layout_margin="10dp"
+        android:hint="Password"
+        android:id="@+id/signUp_password"
         android:textColor="#4E4D4D"
         android:background="@drawable/edt_background"
         android:drawableLeft="@drawable/ic_lock"
         android:paddingLeft="10dp"
+        android:textSize="20dp"
         android:drawablePadding="10dp"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_margin="15dp"
-        android:text="Enter password again"
+        android:layout_margin="10dp"
+        android:hint="Enter password again"
+        android:id="@+id/signUp_password_confirm"
         android:textColor="#4E4D4D"
         android:background="@drawable/edt_background"
         android:drawableLeft="@drawable/ic_lock"
         android:paddingLeft="10dp"
+        android:textSize="20dp"
+        android:drawablePadding="10dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_margin="10dp"
+        android:hint="Enter Sales in Numbers"
+        android:id="@+id/signUp_sales"
+        android:textColor="#4E4D4D"
+        android:background="@drawable/edt_background"
+        android:drawableLeft="@drawable/ic_lock"
+        android:paddingLeft="10dp"
+        android:textSize="20dp"
         android:drawablePadding="10dp"/>
     <android.widget.Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register"
+        android:textSize="20dp"
+        android:padding="15dp"
+
+        android:id="@+id/registerUser"
         android:layout_gravity="center"
         android:textColor="@color/white"
         android:background="@drawable/button_background"

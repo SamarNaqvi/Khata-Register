@@ -23,12 +23,19 @@ public class LoginActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("yes");
-                String em = email.getText().toString();
-                Intent intent=new Intent(LoginActivity.this,MainProfile.class) ;
-                intent.putExtra("email",em);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+
+                String userEmail = email.getText().toString().trim();
+                String userPassword = password.getText().toString().trim();
+                if(userEmail.length()==0)
+                {
+                    email.setError("Email cannot be empty");
+                }
+                if(userPassword.length()==0)
+                {
+                    password.setError("Password cannot be empty");
+                }
+
+                User.getUser(LoginActivity.this, userEmail, userPassword);
 
             }
         });
