@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="40dp"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="40dp"
+        android:text="Add Product"
+        android:layout_marginBottom="30dp"
+        android:textColor="@color/blue"
+        android:gravity="center_horizontal"
+        ></TextView>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Username"
+        android:textSize="25dp"
+        android:id="@+id/productName"
+        ></EditText>
+    <EditText
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Quantity"
+        android:textSize="25dp"
+        android:id="@+id/productQuantity"
+        ></EditText>
+
+    <EditText
+        android:layout_marginBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Price"
+        android:textSize="25dp"
+        android:id="@+id/productPrice"
+        ></EditText>
+
+<!--    <EditText-->
+<!--        android:layout_marginBottom="5dp"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:hint="Purchase Date"-->
+<!--        android:textSize="25dp"-->
+<!--        android:id="@+id/purchaseDate"-->
+<!--        ></EditText>-->
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="1"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+
+        >
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addProduct"
+        android:text="Add"
+        android:layout_marginLeft="30dp"
+        android:padding="5dp"
+        android:textSize="20dp"
+        android:layout_column="0"
+        android:textColor="@color/white"
+        android:layout_marginRight="80dp"
+        android:background="@color/blue"
+        ></androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/closeDialog"
+        android:layout_column="1"
+        android:padding="10dp"
+        android:text="Close"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:background="@color/blue"
+        ></androidx.appcompat.widget.AppCompatButton>
+    </GridLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>
