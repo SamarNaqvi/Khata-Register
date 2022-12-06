@@ -1,27 +1,21 @@
-package com.example.khataregister;
+package com.example.khataregister.UI.Fragments;
 
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.view.View;
-import android.widget.EditText;
-
+import com.example.khataregister.Adaptor.FragmentAdaptor;
+import com.example.khataregister.R;
 import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
 
 
 public class MainProfile extends AppCompatActivity {
 
     TabLayout tabLayout;
     public static ViewPager2 viewPager;
-
+    static FragmentAdaptor adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,7 +25,7 @@ public class MainProfile extends AppCompatActivity {
         viewPager=(ViewPager2)findViewById(R.id.view_pager);
 
 
-        FragmentAdaptor adapter = new FragmentAdaptor(this);
+        adapter = new FragmentAdaptor(this);
         viewPager.setAdapter(adapter);
 
 

@@ -1,26 +1,26 @@
-package com.example.khataregister;
+package com.example.khataregister.DB;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
+import com.example.khataregister.Model.Product;
+import com.example.khataregister.UI.Activities.MainActivity;
+import com.example.khataregister.Model.User;
+import com.example.khataregister.Model.customer;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Map;
 import java.util.Set;
 
-public class fireBaseDb implements fireBaseInterface{
+public class fireBaseDb implements fireBaseInterface {
 
     FirebaseDatabase database;
     DatabaseReference myRef;
@@ -313,7 +313,10 @@ public class fireBaseDb implements fireBaseInterface{
         myRef.child("User").child(userObj.getEmail()).child("sales").setValue(userObj.getTotalSales());
 
         int custId = 1;
-        ArrayList<Product>products = new ArrayList<>();
+        dataLayer sqlDb = new dataLayer(ctx);
+        if(User.db==null)
+            productList = Product.loadProductsFromSql(sqlDb.loadALL("productTable"));
+
         for(customer item : userObj.getCustomers())
         {
             myRef.child("Customer").child(Integer.toString(item.getId())).child("id").setValue(item.getId());
@@ -329,15 +332,16 @@ public class fireBaseDb implements fireBaseInterface{
 
             for (Product obj : item.getProducts())
             {
-                myRef.child("Customer Products").child(Integer.toString(item.getId())).child("prodId_"+Id).setValue(obj.getId());
+                myRef.child("Customer Products").child(Integer.toString(item.getId())).child(obj.getName()).setValue(obj.getId());
                 Id+=1;
 
-                Product prodID =getProductObject(obj.getId());
-                if(prodID==null)
-                {
-                    productList.add(prodID);
-                    myRef.child("Product").child(Integer.toString(prodID.getId())).setValue(prodID);
-                }
+                    Product prodID = getProductObject(obj.getId());
+                    if (prodID == null) {
+                        productList.add(obj);
+                        myRef.child("Product").child(Integer.toString(obj.getId())).setValue(obj);
+                    }
+
+
 
             }
 

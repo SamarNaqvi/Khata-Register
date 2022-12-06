@@ -1,13 +1,15 @@
-package com.example.khataregister;
+package com.example.khataregister.Adaptor;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.khataregister.R;
+import com.example.khataregister.Model.Product;
 
 import java.util.ArrayList;
 
@@ -42,6 +44,10 @@ public class CustomerAdaptor extends RecyclerView.Adapter<CustomerAdaptor.Custom
     @Override
     public int getItemCount() {
         return products.size();
+    }
+
+    public void setArrays(ArrayList<Product> data) {
+        this.products = data;
     }
 
     public class CustomerViewHolder extends RecyclerView.ViewHolder {

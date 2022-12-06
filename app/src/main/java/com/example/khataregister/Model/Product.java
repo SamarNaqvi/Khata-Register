@@ -1,8 +1,12 @@
-package com.example.khataregister;
+package com.example.khataregister.Model;
 
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.example.khataregister.UI.Activities.MainActivity;
+import com.example.khataregister.DB.dataLayer;
+import com.example.khataregister.DB.fireBaseDb;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -56,7 +60,7 @@ public class Product implements Parcelable {
 
         for ( Hashtable<String,String>item : productsBought)
         {
-            int custIndex = Product.getCustomerObject(Integer.parseInt(item.get("custid")),MainActivity.userObj.getCustomers());
+            int custIndex = Product.getCustomerObject(Integer.parseInt(item.get("custid")), MainActivity.userObj.getCustomers());
             int prodIndex = getProductObject(Integer.parseInt(item.get("prodid")), products);
             MainActivity.userObj.getCustomers().get(custIndex).getProducts().add(products.get(prodIndex));
         }

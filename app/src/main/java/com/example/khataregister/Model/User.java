@@ -1,6 +1,11 @@
-package com.example.khataregister;
+package com.example.khataregister.Model;
 
 import android.content.Context;
+
+import com.example.khataregister.UI.Activities.MainActivity;
+import com.example.khataregister.UI.Fragments.ProfileFragment;
+import com.example.khataregister.DB.dataLayer;
+import com.example.khataregister.DB.fireBaseDb;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -10,6 +15,7 @@ public class User {
     private Float receivables;
     public ArrayList<customer>customers = new ArrayList<customer>();
     public static fireBaseDb db = null;
+    public static ArrayList<Product>Allproducts;
 
     private String userName, password, email;
     private int totalSales;
@@ -60,6 +66,13 @@ public class User {
         db.saveAppData(MainActivity.userObj);
 
 
+    }
+
+    public static void calcReceivables() {
+        for (customer item : MainActivity.userObj.getCustomers()) {
+            MainActivity.userObj.receivables += item.getReceivable();
+            ProfileFragment.updateReceivables();
+        }
     }
 
     public Float getReceivables() {

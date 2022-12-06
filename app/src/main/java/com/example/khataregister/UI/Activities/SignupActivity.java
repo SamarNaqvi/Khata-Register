@@ -1,6 +1,7 @@
-package com.example.khataregister;
+package com.example.khataregister.UI.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,15 +9,26 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.khataregister.R;
+import com.example.khataregister.UI.Fragments.MainProfile;
+import com.example.khataregister.Model.User;
+import com.example.khataregister.UI.ViewModel.MainViewModel;
+import com.example.khataregister.UI.ViewModel.SignUpViewModel;
+
 public class SignupActivity extends AppCompatActivity {
 
     EditText userName, userEmail, userPassword, userPasswordConfirm, userSales;
     Button Register;
     String name, email, password, passwordConfirm, sales;
+    private SignUpViewModel vm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        vm = new ViewModelProvider(this).get(SignUpViewModel.class);
+
 
         userName = findViewById(R.id.signUp_name);
         userEmail = findViewById(R.id.signUp_email);
@@ -84,7 +96,7 @@ public class SignupActivity extends AppCompatActivity {
                 MainActivity.userObj.setTotalSales(Integer.parseInt(sales));
                 User.saveDataToSql(SignupActivity.this);
 
-                Intent intent=new Intent(SignupActivity.this,MainProfile.class);
+                Intent intent=new Intent(SignupActivity.this, MainProfile.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
 

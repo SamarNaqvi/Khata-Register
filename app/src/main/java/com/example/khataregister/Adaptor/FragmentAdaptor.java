@@ -1,22 +1,21 @@
-package com.example.khataregister;
-
-import android.content.Context;
+package com.example.khataregister.Adaptor;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.khataregister.UI.Fragments.AnalyticsFragment;
+import com.example.khataregister.UI.Fragments.DetailsFragment;
+import com.example.khataregister.UI.Fragments.ProfileFragment;
+
 public class FragmentAdaptor extends FragmentStateAdapter {
-
-    String [] titles = {"Profile", "Details", "Analytics"};
-
 
     public FragmentAdaptor(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
+
+
 
     @NonNull
     @Override
@@ -32,9 +31,12 @@ public class FragmentAdaptor extends FragmentStateAdapter {
                 AnalyticsFragment analyticsFragment = new AnalyticsFragment();
                 return analyticsFragment;
             default:
-                return new ProfileFragment();
+                ProfileFragment profileFragment1 = new ProfileFragment();
+                return profileFragment1;
         }
     }
+
+
 
     @Override
     public int getItemCount() {

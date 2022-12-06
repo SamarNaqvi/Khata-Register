@@ -1,4 +1,4 @@
-package com.example.khataregister;
+package com.example.khataregister.UI.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,12 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
+import com.example.khataregister.UI.Activities.MainActivity;
+import com.example.khataregister.Model.Product;
+import com.example.khataregister.R;
+import com.example.khataregister.Model.User;
+import com.example.khataregister.Model.customer;
+import com.example.khataregister.Adaptor.customerList;
 
 import java.util.ArrayList;
 
@@ -26,7 +30,8 @@ public class ProfileFragment extends Fragment implements customerList.ItemClickL
     RecyclerView recyclerView;
     customerList adaptor;
     private final int GALLERY_REQ_CODE=1000;
-    TextView name,sales, receivables;
+    TextView name,sales;
+    static TextView receivables;
     EditText newCustomer;
     static String customerName, customerReceivables , customerImg;
     String userName, userSales, userReceivables;
@@ -42,6 +47,11 @@ public class ProfileFragment extends Fragment implements customerList.ItemClickL
         userReceivables = Float.toString(MainActivity.userObj.getReceivables());
         if(customersList!=null && customersList.size()>0)
             populateData(customersList.get(0));
+    }
+
+    public static void updateReceivables()
+    {
+        receivables.setText(Float.toString(MainActivity.userObj.getReceivables()));
     }
 
     @Override
@@ -70,8 +80,15 @@ public class ProfileFragment extends Fragment implements customerList.ItemClickL
 
                 User.saveDataToFireBase(getContext());
                 User.truncateDb(getContext());
+
+                getActivity().finish();
+                // on below line we are exiting our activity
+                System.exit(0);
+
+                MainActivity.userObj = null;
+                User.db = null;
                 Intent intent=new Intent(getContext(),MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -92,6 +109,7 @@ public class ProfileFragment extends Fragment implements customerList.ItemClickL
     }
 
     public void populateData(customer obj) {
+
         data = obj.getProducts();
         customerName = obj.getName();
         customerReceivables = Float.toString(obj.getReceivable());
@@ -104,6 +122,10 @@ public class ProfileFragment extends Fragment implements customerList.ItemClickL
     public void onItemClick(int pos) {
         customer obj = this.customersList.get(pos);
         populateData(obj);
-        MainProfile.viewPager.setCurrentItem(MainProfile.viewPager.getCurrentItem()+1,true);
+        int index = MainProfile.viewPager.getCurrentItem()+1;
+
+        MainProfile.viewPager.setCurrentItem(index,true);
+        DetailsFragment frag = (DetailsFragment) MainProfile.adapter.createFragment(index);
+        frag.refresh();
     }
 }

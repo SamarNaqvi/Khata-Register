@@ -1,13 +1,15 @@
-package com.example.khataregister;
+package com.example.khataregister.UI.Fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.fragment.app.Fragment;
-
+import com.example.khataregister.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -17,7 +19,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 
 
-public class analytics extends Fragment {
+public class AnalyticsFragment extends Fragment {
     PieChart pieChart;
 
 
@@ -28,8 +30,8 @@ public class analytics extends Fragment {
         View view= inflater.inflate(R.layout.fragment_analytics, container, false);
         pieChart =(PieChart) view.findViewById(R.id.PieChart);
         ArrayList<PieEntry> records=new ArrayList<>();
-        records.add(new PieEntry(MainActivity.userObj.getReceivables(),"TotalDebt"));
-        records.add(new PieEntry(MainActivity.userObj.getTotalSales(),"TotalSales"));
+        records.add(new PieEntry(40,"TotalDebt"));
+        records.add(new PieEntry(60,"TotalReceived"));
 
         PieDataSet pieDataSet=new PieDataSet(records,"Analytics");
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);

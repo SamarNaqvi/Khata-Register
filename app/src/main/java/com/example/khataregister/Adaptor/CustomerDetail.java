@@ -1,4 +1,4 @@
-package com.example.khataregister;
+package com.example.khataregister.Adaptor;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.khataregister.R;
+import com.example.khataregister.Model.Product;
 
 import java.util.ArrayList;
 

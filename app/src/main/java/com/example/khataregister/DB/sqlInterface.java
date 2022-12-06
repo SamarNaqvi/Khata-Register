@@ -1,4 +1,4 @@
-package com.example.khataregister;
+package com.example.khataregister.DB;
 
 import java.util.ArrayList;
 import java.util.Hashtable;

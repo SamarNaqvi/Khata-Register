@@ -1,7 +1,5 @@
-package com.example.khataregister;
+package com.example.khataregister.UI.Fragments;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -20,7 +18,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
+import com.example.khataregister.Adaptor.CustomerAdaptor;
+import com.example.khataregister.Model.Product;
+import com.example.khataregister.R;
+import com.example.khataregister.Model.customer;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,10 +31,10 @@ import java.util.Locale;
 public class DetailsFragment extends Fragment {
 
     CustomerAdaptor adaptor;
-    ArrayList<Product> data = new ArrayList<Product>();
+    static ArrayList<Product> data = new ArrayList<Product>();
     ImageView img;
     TextView name, payable;
-    String personName= "sample User", price= "0", imgRsc="user";
+    static String personName= "sample User", price= "0", imgRsc="user";
     AppCompatButton addProduct, editBalance;
 
     @Override
@@ -44,13 +45,22 @@ public class DetailsFragment extends Fragment {
 
     }
 
-    private void createData() {
+    public void createData(customer obj) {
 
-            data = ProfileFragment.data==null? new ArrayList<Product>():ProfileFragment.data;
-            personName = ProfileFragment.customerName==null? "sample user": ProfileFragment.customerName;
-            price =ProfileFragment.customerReceivables=="-1"? "0" : ProfileFragment.customerReceivables;
-            imgRsc =ProfileFragment.customerImg==null? "user": ProfileFragment.customerImg;
+        data = ProfileFragment.data==null? new ArrayList<Product>():ProfileFragment.data;
+        personName = ProfileFragment.customerName==null? "sample user": ProfileFragment.customerName;
+        price =ProfileFragment.customerReceivables=="-1"? "0" : ProfileFragment.customerReceivables;
+        imgRsc =ProfileFragment.customerImg==null? "user": ProfileFragment.customerImg;
     }
+    public void createData() {
+
+        data = ProfileFragment.data==null? new ArrayList<Product>():ProfileFragment.data;
+        personName = ProfileFragment.customerName==null? "sample user": ProfileFragment.customerName;
+        price =ProfileFragment.customerReceivables=="-1"? "0" : ProfileFragment.customerReceivables;
+        imgRsc =ProfileFragment.customerImg==null? "user": ProfileFragment.customerImg;
+    }
+
+
 
 
     @Override
@@ -71,6 +81,15 @@ public class DetailsFragment extends Fragment {
         addProduct = root.findViewById(R.id.add_new_product);
         editBalance = root.findViewById(R.id.update_receivable);
 
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createData();
+                setData();
+                adaptor.setArrays(data);
+                adaptor.notifyDataSetChanged();
+            }
+        });
         addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,15 +104,18 @@ public class DetailsFragment extends Fragment {
             }
         });
 
+        setData();
 
+        return root;
+    }
+    private void setData()
+    {
         int rscId = getResources().getIdentifier(imgRsc, "drawable", getActivity().getPackageName());
         img.setImageResource(rscId);
 
         name.setText(personName);
         payable.setText("$"+ price);
-        return root;
     }
-
     public void showAddProductDialog()
     {
         AlertDialog.Builder alert;
@@ -140,7 +162,7 @@ public class DetailsFragment extends Fragment {
 
 
                 Product.addProduct(prod,getContext(), ProfileFragment.id);
-                data.add(prod);
+
              //   MainActivity.userObj.getCustomers().get(ProfileFragment.id).getProducts().add(prod);
                 adaptor.notifyDataSetChanged();
                 Toast.makeText(getContext(),"Product Added", Toast.LENGTH_LONG).show();
@@ -210,5 +232,9 @@ public class DetailsFragment extends Fragment {
             }
         });
 
+    }
+
+    public void refresh() {
+        createData();
     }
 }

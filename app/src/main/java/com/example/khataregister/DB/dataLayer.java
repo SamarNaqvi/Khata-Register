@@ -1,4 +1,4 @@
-package com.example.khataregister;
+package com.example.khataregister.DB;
 
 import android.content.ContentValues;
 import android.content.Context;

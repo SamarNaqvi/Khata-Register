@@ -4,6 +4,8 @@
     package="com.example.khataregister">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -16,16 +18,13 @@
         android:theme="@style/Theme.KhataRegister"
         tools:targetApi="31">
         <activity
-            android:name=".MainProfile"
+            android:name=".UI.Fragments.MainProfile"
             android:exported="false" />
         <activity
-            android:name=".SignupActivity"
+            android:name=".UI.Activities.SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".UI.Activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

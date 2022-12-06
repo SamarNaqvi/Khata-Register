@@ -1,8 +1,12 @@
-package com.example.khataregister;
+package com.example.khataregister.Model;
 
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.example.khataregister.UI.Activities.MainActivity;
+import com.example.khataregister.DB.dataLayer;
+import com.example.khataregister.DB.fireBaseDb;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -63,7 +67,7 @@ public class customer implements Parcelable {
 
         int custIndex = getCustomerObject(Integer.parseInt(id) , MainActivity.userObj.getCustomers());
         MainActivity.userObj.getCustomers().get(custIndex).setReceivable(Float.parseFloat(price));
-
+        User.calcReceivables();
         db.updateBalance(customer);
     }
 
@@ -197,6 +201,7 @@ public class customer implements Parcelable {
             cust.setReceivable(-1);
         }
         Hashtable<String,String>customer= new Hashtable<String,String>();
+
         customer.put("name",cust.getName());
         customer.put("img",cust.getPic());
         if(cust.getReceivable()==-1)
@@ -204,6 +209,12 @@ public class customer implements Parcelable {
         else
         {
             customer.put("receivable",Float.toString(cust.getReceivable()));
+        }
+
+        if(cust.getId()>0)
+        {
+            customer.put("id",Integer.toString(cust.getId()));
+            customer.put("receivable", "0");
         }
 
         if(products.size()>0)

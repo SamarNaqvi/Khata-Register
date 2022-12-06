@@ -1,4 +1,4 @@
-package com.example.khataregister;
+package com.example.khataregister.Adaptor;
 
 
 import android.content.Context;
@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.khataregister.R;
+import com.example.khataregister.Model.customer;
 
 import java.util.ArrayList;
 import java.util.List;
