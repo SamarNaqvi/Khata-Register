@@ -97,8 +97,8 @@ public class Product implements Parcelable {
 
         ArrayList<customer>customers = MainActivity.userObj.getCustomers();
         custID = obj.getCustomerObject(custID, customers);
-
-        for ( Product prod : customers.get(custID).getProducts())
+        ArrayList<Product>custProducts = customers.get(custID).getProducts();
+        for ( Product prod : custProducts)
         {
             if(prod.getName() == obj.getName())
             {
