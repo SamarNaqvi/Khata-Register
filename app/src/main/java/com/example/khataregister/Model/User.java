@@ -53,6 +53,13 @@ public class User {
         if(MainActivity.userObj==null)  return;
 
         MainActivity.userObj.setCustomers(customer.generateCustomers(sqlDb.loadALL("customerTable")));
+
+        if(MainActivity.userObj.getCustomers()!=null) {
+            for (customer item : MainActivity.userObj.getCustomers()) {
+                MainActivity.userObj.receivables += item.getReceivable();
+            }
+        }
+
         ArrayList<Product> products = Product.loadProductsFromSql(sqlDb.loadALL("productTable"));
         Product.updateCustomerProducts(products, sqlDb.loadALL("ProductsBought"));
     }

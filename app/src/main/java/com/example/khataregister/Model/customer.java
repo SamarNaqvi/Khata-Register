@@ -69,6 +69,10 @@ public class customer implements Parcelable {
         MainActivity.userObj.getCustomers().get(custIndex).setReceivable(Float.parseFloat(price));
         User.calcReceivables();
         db.updateBalance(customer);
+        if(User.db!=null)
+        {
+            User.db.updateBalance(id, price);
+        }
     }
 
     private static int getCustomerObject(int id, ArrayList<customer>customers)

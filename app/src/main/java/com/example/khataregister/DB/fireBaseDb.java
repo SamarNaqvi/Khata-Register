@@ -350,6 +350,10 @@ public class fireBaseDb implements fireBaseInterface {
         progressDialog.dismiss();
 
     }
+
+    public void updateBalance(String id, String price) {
+        myRef.child("Customer").child(id).child("receivable").setValue(price);
+    }
 }
 
 
