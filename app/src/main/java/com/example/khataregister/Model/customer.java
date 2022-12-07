@@ -214,7 +214,8 @@ public class customer implements Parcelable {
         if(cust.getId()>0)
         {
             customer.put("id",Integer.toString(cust.getId()));
-            customer.put("receivable", "0");
+            if(cust.getReceivable()<=0)
+                customer.put("receivable", "0");
         }
 
         if(products.size()>0)

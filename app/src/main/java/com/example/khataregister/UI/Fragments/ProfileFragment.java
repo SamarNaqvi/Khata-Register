@@ -1,7 +1,15 @@
 package com.example.khataregister.UI.Fragments;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.TextView;
+
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,8 +19,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.khataregister.UI.Activities.MainActivity;
 import com.example.khataregister.Model.Product;
@@ -20,15 +30,17 @@ import com.example.khataregister.R;
 import com.example.khataregister.Model.User;
 import com.example.khataregister.Model.customer;
 import com.example.khataregister.Adaptor.customerList;
+import com.example.khataregister.service.counterService;
 
 import java.util.ArrayList;
 
-public class ProfileFragment extends Fragment implements customerList.ItemClickListener {
+public class ProfileFragment extends Fragment implements customerList.ItemClickListener,View.OnClickListener {
 
     static ArrayList<Product>data = new ArrayList<>();
     static ArrayList<customer> customersList = new ArrayList<customer>();
     RecyclerView recyclerView;
     customerList adaptor;
+    private WifiManager wifiManager;
     private final int GALLERY_REQ_CODE=1000;
     TextView name,sales;
     static TextView receivables;
@@ -36,6 +48,12 @@ public class ProfileFragment extends Fragment implements customerList.ItemClickL
     static String customerName, customerReceivables , customerImg;
     String userName, userSales, userReceivables;
     static int id;
+    private static final String TAG=MainActivity.class.getSimpleName();
+    private View buttonStartService;
+    private Context mContext;
+    private Intent serviceIntent;
+    private Switch wifiSwitch;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,6 +91,9 @@ public class ProfileFragment extends Fragment implements customerList.ItemClickL
         adaptor =  new customerList(customersList, getContext(), this);
         recyclerView.setAdapter(adaptor);
 
+        wifiSwitchHandler(root);
+        serviceHandler(root);
+
         Button logout = root.findViewById(R.id.log_out);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +120,8 @@ public class ProfileFragment extends Fragment implements customerList.ItemClickL
             public void onClick(View view) {
                 customer cust = new customer(newCustomer.getText().toString());
                 customer.addCustomer(cust, getContext());
-
+                Toast.makeText(getContext(), "Customer Added Successfully", Toast.LENGTH_LONG).show();
+                newCustomer.setText("");
                 MainActivity.userObj.getCustomers().add(cust);
                 adaptor.setArrays(customersList);
                 adaptor.notifyDataSetChanged();
@@ -128,4 +150,81 @@ public class ProfileFragment extends Fragment implements customerList.ItemClickL
         DetailsFragment frag = (DetailsFragment) MainProfile.adapter.createFragment(index);
         frag.refresh();
     }
+
+
+    private void serviceHandler(View root) {
+        mContext = getContext().getApplicationContext();
+        buttonStartService = (View) root.findViewById(R.id.buttonStartService);
+
+        buttonStartService.setOnClickListener(this);
+        serviceIntent = new Intent(getContext(), counterService.class);
+        getActivity().startService(serviceIntent);
+
+    }
+    @Override
+    public void onClick (View view){
+        Toast.makeText(mContext, Integer.toString(counterService.getRandomNumber()) + " seconds used", Toast.LENGTH_SHORT).show();
+    }
+
+
+
+    private void wifiSwitchHandler(View root) {
+        wifiSwitch = root.findViewById(R.id.internetSwitch);
+        wifiManager =(WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
+        wifiSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    wifiManager.setWifiEnabled(true);
+                    //wifiSwitch.setText("Wifi is ON");
+                }else{
+                    wifiManager.setWifiEnabled(false);
+                    //wifiSwitch.setText("Wifi is OFF");
+                }
+            }
+        });
+
+        if(wifiManager.isWifiEnabled()){
+            wifiSwitch.setChecked(true);
+            //wifiSwitch.setText("Wifi is ON");
+        }else
+        {
+            wifiSwitch.setChecked(false);
+           // wifiSwitch.setText("Wifi is OFF");
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        IntentFilter intentFilter = new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        getContext().getApplicationContext().registerReceiver(wifiStateReceiver, intentFilter);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        getActivity().unregisterReceiver(wifiStateReceiver);
+    }
+
+    private BroadcastReceiver wifiStateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int wifiStateExtra = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE,
+                    WifiManager.WIFI_STATE_UNKNOWN);
+
+            switch (wifiStateExtra) {
+                case WifiManager.WIFI_STATE_ENABLED:
+                    wifiSwitch.setChecked(true);
+                    //wifiSwitch.setText("WiFi is ON");
+                    break;
+                case WifiManager.WIFI_STATE_DISABLED:
+                    wifiSwitch.setChecked(false);
+                    //wifiSwitch.setText("WiFi is OFF");
+                    break;
+            }
+        }
+    };
+
 }
